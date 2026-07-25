@@ -3,8 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm/browser';
+import { Users } from '../users/user.entity';
+import { Books } from '../books/book.entity';
 
 @Entity()
 export class Borrows {
@@ -51,4 +55,11 @@ export class Borrows {
 
   @UpdateDateColumn()
   updateDate: Date;
+  
+  @ManyToOne(() => Users, (users) => users.borrows)
+  @JoinColumn()
+    user: Users;
+  @ManyToOne(() => Books, (books) => books.borrows)
+  @JoinColumn()
+    book: Books;
 }

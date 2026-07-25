@@ -3,8 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm/browser';
+import { Users } from '../users/user.entity';
+import { Books } from '../books/book.entity';
 
 @Entity()
 export class Reservations {
@@ -36,4 +40,12 @@ export class Reservations {
 
   @UpdateDateColumn()
   updateDate: Date;
+
+  @ManyToOne(() => Users, (users) => users.reservations)
+@JoinColumn()
+user: Users;
+
+@ManyToOne(() => Books, (books) => books.reservations)
+@JoinColumn()
+book: Books;
 }

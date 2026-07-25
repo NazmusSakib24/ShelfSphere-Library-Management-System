@@ -3,10 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   UpdateDateColumn,
+  JoinColumn
 } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm/browser';
 import { Categories } from '../categories/categories.entity';
+import { Borrows } from '../borrows/borrows.entity';
+import { Reservations } from 'src/reservations/reservations.entity';
 
 @Entity()
 export class Books {
@@ -86,5 +90,12 @@ export class Books {
   updateDate: Date;
 
   @ManyToOne(() => Categories, (categories) => categories.books)
+  @JoinColumn()
     category: Categories;
+
+  @OneToMany(() => Borrows, (borrows) => borrows.book)
+    borrows: Borrows[];
+  
+  @OneToMany(() => Reservations, (reservations) => reservations.book)
+    reservations: Reservations[];
 }
