@@ -36,10 +36,7 @@ export class UsersService {
   return this.userRepository.findOne({
     where: { id },
 
-    relations: {
-      borrowRecords: true,
-      reservations: true,
-    },
+    
   });
 }
   async update(

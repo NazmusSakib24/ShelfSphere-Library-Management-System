@@ -1,43 +1,84 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import {
+  ConfigModule,
+  ConfigService,
+} from '@nestjs/config';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { AuthModule } from './auth/auth.module';
+
 import { UsersModule } from './users/users.module';
-import { BooksModule } from './books/books.module';
 import { CategoriesModule } from './categories/categories.module';
-import { BorrowsModule } from './borrows/borrows.module';
-import { ReservationsModule } from './reservations/reservations.module';
+import { BooksModule } from './books/books.module';;
+import { AuthModule } from './auth/auth.module';
+
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
 
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
 
-      autoLoadEntities: true,
-      synchronize: true,
+      inject: [ConfigService],
+
+      useFactory: (
+        configService: ConfigService,
+      ) => ({
+        type: 'postgres',
+
+        host: configService.get<string>(
+          'DB_HOST',
+          'localhost',
+        ),
+
+        port: configService.get<number>(
+          'DB_PORT',
+          5432,
+        ),
+
+        username: configService.get<string>(
+          'DB_USERNAME',
+          'postgres',
+        ),
+
+        password: configService.get<string>(
+          'DB_PASSWORD',
+          '',
+        ),
+
+        database: configService.get<string>(
+          'DB_NAME',
+          'shelfsphere',
+        ),
+
+        autoLoadEntities: true,
+
+        synchronize: true,
+      }),
     }),
 
-    AuthModule,
     UsersModule,
-    BooksModule,
+
     CategoriesModule,
-    BorrowsModule,
-    ReservationsModule,
+
+    BooksModule,
+
+   
+    AuthModule,
+
+   
   ],
+
   controllers: [AppController],
+
   providers: [AppService],
 })
 export class AppModule {}
