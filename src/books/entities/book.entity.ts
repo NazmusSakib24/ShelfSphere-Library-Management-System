@@ -8,7 +8,8 @@ import {
 } from 'typeorm';
 
 import { Category } from '../../categories/entities/category.entity';
-
+import { BorrowRecord } from '../../borrows/entities/borrow-record.entity';
+import { Reservation } from '../../reservations/entities/reservation.entity';
 
 @Entity('books')
 export class Book {
@@ -48,5 +49,14 @@ export class Book {
   @JoinTable()
   categories: Category[];
 
-  
+  @OneToMany(
+    () => BorrowRecord,
+    (borrowRecord) => borrowRecord.book,
+  )
+  borrowRecords: BorrowRecord[];
+  @OneToMany(
+  () => Reservation,
+  (reservation) => reservation.book,
+)
+reservations: Reservation[];
 }

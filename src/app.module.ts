@@ -8,13 +8,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
+import { MailModule } from './mail/mail.module';
 
 import { UsersModule } from './users/users.module';
 import { CategoriesModule } from './categories/categories.module';
-import { BooksModule } from './books/books.module';;
+import { BooksModule } from './books/books.module';
+import { BorrowsModule } from './borrows/borrows.module';
 import { AuthModule } from './auth/auth.module';
-
+import { ReservationsModule } from './reservations/reservations.module';
+import { FinesModule } from './fines/fines.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { ReportsModule } from './reports/reports.module';
 
 
 @Module({
@@ -71,10 +75,19 @@ import { AuthModule } from './auth/auth.module';
 
     BooksModule,
 
-   
+    BorrowsModule,
+
     AuthModule,
 
-   
+    ReservationsModule,
+
+    FinesModule,
+     
+    DashboardModule,
+
+    MailModule,
+
+    ReportsModule,
   ],
 
   controllers: [AppController],
