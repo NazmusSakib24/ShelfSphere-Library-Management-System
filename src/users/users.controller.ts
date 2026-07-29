@@ -30,6 +30,11 @@ export class UsersController {
     );
   }
 
+  @Get(':id/history')
+  async getMemberHistory(@Param('id') id: string) {
+    return this.usersService.findOne(Number(id));
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

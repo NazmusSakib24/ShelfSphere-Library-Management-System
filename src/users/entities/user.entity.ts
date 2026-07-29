@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
-
+import { BorrowRecord } from '../../borrows/entities/borrow-record.entity';
+import { Reservation } from '../../reservations/entities/reservation.entity';
 
 export enum UserRole {
   MEMBER = 'MEMBER',
@@ -48,5 +49,11 @@ export class User {
   })
   role: UserRole;
 
- 
+  @OneToMany(() => BorrowRecord, (borrowRecord) => borrowRecord.member)
+  borrowRecords: BorrowRecord[];
+  @OneToMany(
+  () => Reservation,
+  (reservation) => reservation.member,
+)
+   reservations: Reservation[];
 }
