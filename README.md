@@ -19,9 +19,9 @@ Backend REST API for the **ShelfSphere - Online Library Management System**.
 |--------|--------|------------------|
 | Sakib | Auth & Users | `/auth/register`, `/auth/login`, `/auth/me` |
 | Zunaed | Books & Categories | `/books`, `/books/:id` (CRUD + Many-to-Many with Category), ER Diagram |
-| Adittya | Borrowing & Returns | `/borrows`, `/borrows/myborrows`, `/borrows/:id/return` |
+| Adittya | Borrowing & Returns, Mailer | `/borrows`, `/borrows/myborrows`, `/borrows/:id/return` |
 | Prithwib | Reservations & Member History | `/reservations`, `/reservations/:id`, `/members/:id/history` |
-| Extras | Mailer, Docs & QA | Mailer, Swagger, README, Testing, Repository Management |
+| Extras |  Docs & QA | Mailer, Swagger, README, Testing, Repository Management |
 
 ---
 
